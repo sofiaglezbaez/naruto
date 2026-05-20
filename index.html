@@ -1,238 +1,637 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Andrea Sofia Gonzalez Baez</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
-<style>
-  * { margin: 0; padding: 0; box-sizing: border-box; }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mar Profundo — Mariscos Frescos</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --deep:      #0a1628;
+      --navy:      #0d2340;
+      --ocean:     #0e4d7b;
+      --teal:      #0a7c8c;
+      --aqua:      #00b5cc;
+      --foam:      #c8f0f5;
+      --sand:      #e8d9b0;
+      --coral:     #e05c3a;
+      --gold:      #d4a853;
+      --white:     #f4f9fb;
+    }
 
-  body {
-    background: #e8e0d8;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    font-family: 'Lato', sans-serif;
-  }
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--deep);
+      color: var(--white);
+      overflow-x: hidden;
+    }
 
-  .page {
-    width: 794px;
-    min-height: 1123px;
-    background: #fff;
-    position: relative;
-    overflow: hidden;
-    box-shadow: 0 8px 40px rgba(0,0,0,0.18);
-  }
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at 20% 40%, rgba(14,77,123,.45) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 10%, rgba(10,124,140,.30) 0%, transparent 50%),
+        radial-gradient(ellipse at 50% 90%, rgba(0,181,204,.15) 0%, transparent 55%);
+      pointer-events: none;
+      z-index: 0;
+    }
 
-  /* Top bar */
-  .top-bar {
-    position: absolute;
-    top: 0; right: 0;
-    width: 65%;
-    height: 18px;
-    background: #7a9abf;
-    border-radius: 0 0 0 30px;
-  }
+    nav {
+      position: fixed; top:0; left:0; right:0; z-index: 100;
+      display: flex; align-items:center; justify-content: space-between;
+      padding: 1.1rem 5%;
+      background: rgba(10,22,40,.85);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(0,181,204,.18);
+    }
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.55rem;
+      letter-spacing: .03em;
+      color: var(--aqua);
+      display: flex; align-items:center; gap:.5rem;
+    }
+    .logo span { color: var(--gold); font-style: italic; }
+    nav ul { list-style:none; display:flex; gap:2rem; }
+    nav ul a {
+      text-decoration:none; color: rgba(244,249,251,.7);
+      font-size:.9rem; font-weight:500; letter-spacing:.04em;
+      transition: color .25s;
+    }
+    nav ul a:hover { color: var(--aqua); }
+    .nav-cta {
+      background: var(--aqua); color: var(--deep)!important;
+      padding: .45rem 1.2rem; border-radius: 2rem;
+      font-weight:600!important; transition: background .25s, transform .2s!important;
+    }
+    .nav-cta:hover { background: var(--foam)!important; transform: scale(1.04); }
 
-  /* Bottom bar */
-  .bottom-bar {
-    position: absolute;
-    bottom: 0; left: 0;
-    width: 55%;
-    height: 18px;
-    background: #7a9abf;
-    border-radius: 0 30px 0 0;
-  }
+    .hero {
+      position: relative; z-index: 1;
+      min-height: 100vh;
+      display: flex; flex-direction:column;
+      align-items: center; justify-content: center;
+      text-align: center;
+      padding: 8rem 5% 5rem;
+      overflow: hidden;
+    }
+    .hero-badge {
+      display: inline-block;
+      border: 1px solid var(--aqua);
+      color: var(--aqua);
+      font-size: .75rem; letter-spacing:.2em; text-transform:uppercase;
+      padding: .35rem 1rem; border-radius:2rem;
+      margin-bottom: 1.8rem;
+      animation: fadeDown .8s ease both;
+    }
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3rem, 8vw, 7rem);
+      line-height: 1.05;
+      margin-bottom: 1.4rem;
+      animation: fadeDown .9s .1s ease both;
+    }
+    .hero h1 em { color: var(--aqua); font-style: italic; }
+    .hero p {
+      max-width: 540px;
+      font-size: 1.05rem; line-height:1.7;
+      color: rgba(244,249,251,.7);
+      margin-bottom: 2.5rem;
+      animation: fadeDown .9s .2s ease both;
+    }
+    .hero-btns {
+      display:flex; gap:1rem; flex-wrap:wrap; justify-content:center;
+      animation: fadeDown .9s .3s ease both;
+    }
+    .btn-primary {
+      background: var(--coral);
+      color: #fff; border:none; cursor:pointer;
+      padding: .85rem 2.2rem; border-radius:.4rem;
+      font-size:1rem; font-weight:600;
+      transition: background .25s, transform .2s;
+      text-decoration:none;
+    }
+    .btn-primary:hover { background: #c94a2a; transform:translateY(-2px); }
+    .btn-outline {
+      background: transparent;
+      border: 1.5px solid rgba(0,181,204,.6);
+      color: var(--aqua);
+      padding: .85rem 2.2rem; border-radius:.4rem;
+      font-size:1rem; font-weight:500; cursor:pointer;
+      transition: border-color .25s, background .25s, color .25s;
+      text-decoration:none;
+    }
+    .btn-outline:hover { background: rgba(0,181,204,.12); border-color: var(--aqua); }
 
-  /* Date area */
-  .date-block {
-    position: absolute;
-    top: 28px;
-    left: 40px;
-    font-family: 'Lato', sans-serif;
-    font-weight: 700;
-    font-size: 13px;
-    letter-spacing: 2px;
-    color: #3a3a3a;
-    line-height: 1.7;
-    text-transform: uppercase;
-  }
+    .wave-divider { position:relative; z-index:1; line-height:0; }
+    .wave-divider svg { display:block; width:100%; }
 
-  /* Diagonal decorative diamond shapes */
-  .diamond-bg {
-    position: absolute;
-    top: 200px;
-    left: -60px;
-    width: 340px;
-    height: 340px;
-    background: linear-gradient(135deg, rgba(122,154,191,0.13), rgba(122,154,191,0.04));
-    transform: rotate(45deg);
-    border-radius: 18px;
-  }
-  .diamond-bg2 {
-    position: absolute;
-    top: 420px;
-    left: 40px;
-    width: 220px;
-    height: 220px;
-    background: linear-gradient(135deg, rgba(122,154,191,0.08), transparent);
-    transform: rotate(45deg);
-    border-radius: 12px;
-  }
+    .stats-bar {
+      position:relative; z-index:1;
+      background: rgba(13,35,64,.8);
+      backdrop-filter:blur(8px);
+      border-top: 1px solid rgba(0,181,204,.15);
+      border-bottom: 1px solid rgba(0,181,204,.15);
+      display:grid; grid-template-columns: repeat(4,1fr);
+      padding: 2rem 5%;
+    }
+    .stat { text-align:center; padding: .5rem; }
+    .stat-num {
+      font-family:'Playfair Display',serif;
+      font-size: 2.4rem; color: var(--aqua);
+    }
+    .stat-label { font-size:.8rem; color:rgba(244,249,251,.5); letter-spacing:.08em; text-transform:uppercase; margin-top:.2rem; }
 
-  /* Logo / icon area */
-  .logo-area {
-    position: absolute;
-    top: 55px;
-    right: 50px;
-    width: 90px;
-    height: 90px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    border: 1.5px solid #7a9abf;
-    border-radius: 50%;
-    background: rgba(122,154,191,0.06);
-  }
+    section { position:relative; z-index:1; padding: 5rem 5%; }
+    .section-tag {
+      font-size:.72rem; letter-spacing:.25em; text-transform:uppercase;
+      color: var(--aqua); margin-bottom:.7rem; display:block;
+    }
+    .section-title {
+      font-family:'Playfair Display',serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      margin-bottom:1rem;
+    }
+    .section-sub { color:rgba(244,249,251,.6); font-size:.98rem; line-height:1.6; max-width:550px; }
 
-  .logo-area svg {
-    width: 40px;
-    height: 40px;
-    stroke: #7a9abf;
-    fill: none;
-    stroke-width: 1.3;
-  }
+    .products-header {
+      display:flex; align-items:flex-end; justify-content:space-between;
+      flex-wrap:wrap; gap:1rem; margin-bottom:3rem;
+    }
+    .filter-tabs { display:flex; gap:.6rem; flex-wrap:wrap; }
+    .tab {
+      border: 1px solid rgba(0,181,204,.3);
+      background: transparent; color: rgba(244,249,251,.6);
+      padding:.38rem 1rem; border-radius:2rem; font-size:.82rem; cursor:pointer;
+      transition: all .2s;
+    }
+    .tab.active, .tab:hover {
+      background: var(--aqua); color: var(--deep);
+      border-color: var(--aqua); font-weight:600;
+    }
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+      gap: 1.8rem;
+    }
+    .product-card {
+      background: rgba(13,35,64,.7);
+      border: 1px solid rgba(0,181,204,.15);
+      border-radius: 1.1rem;
+      overflow: hidden;
+      transition: transform .3s, box-shadow .3s, border-color .3s;
+      cursor:pointer;
+    }
+    .product-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 50px rgba(0,0,0,.4), 0 0 0 1px rgba(0,181,204,.3);
+      border-color: rgba(0,181,204,.4);
+    }
+    .card-img {
+      width:100%; height:200px; object-fit:cover;
+      display:flex; align-items:center; justify-content:center;
+      font-size:5rem;
+      background: linear-gradient(135deg, rgba(10,124,140,.3), rgba(14,77,123,.5));
+    }
+    .card-badge {
+      display:inline-block; font-size:.68rem; font-weight:600;
+      letter-spacing:.1em; text-transform:uppercase;
+      padding:.22rem .7rem; border-radius:1rem; margin-bottom:.6rem;
+    }
+    .badge-fresh  { background: rgba(0,181,204,.2);  color: var(--aqua); }
+    .badge-premium{ background: rgba(212,168,83,.2); color: var(--gold); }
+    .badge-offer  { background: rgba(224,92,58,.2);  color: var(--coral); }
+    .card-body { padding:1.2rem 1.4rem 1.4rem; }
+    .card-body h3 { font-family:'Playfair Display',serif; font-size:1.2rem; margin-bottom:.35rem; }
+    .card-body p  { font-size:.82rem; color:rgba(244,249,251,.55); line-height:1.5; margin-bottom:1rem; }
+    .card-footer { display:flex; align-items:center; justify-content:space-between; }
+    .price { font-family:'Playfair Display',serif; font-size:1.35rem; color:var(--gold); }
+    .price span { font-size:.78rem; color:rgba(244,249,251,.4); font-family:'DM Sans',sans-serif; }
+    .add-btn {
+      background: var(--coral); color:#fff; border:none; cursor:pointer;
+      width:38px; height:38px; border-radius:50%; font-size:1.2rem;
+      display:flex; align-items:center; justify-content:center;
+      transition: background .2s, transform .2s;
+    }
+    .add-btn:hover { background:#c94a2a; transform:scale(1.1); }
 
-  .logo-label {
-    font-size: 8.5px;
-    letter-spacing: 1.2px;
-    color: #7a9abf;
-    font-family: 'Lato', sans-serif;
-    font-weight: 700;
-    text-transform: uppercase;
-    margin-top: 5px;
-    text-align: center;
-    line-height: 1.3;
-  }
+    .categories { background: rgba(13,35,64,.4); }
+    .cats-grid {
+      display:grid; grid-template-columns: repeat(auto-fill, minmax(160px,1fr));
+      gap:1.2rem; margin-top:2.8rem;
+    }
+    .cat-card {
+      background: rgba(14,77,123,.25);
+      border: 1px solid rgba(0,181,204,.15);
+      border-radius:.9rem; padding:2rem 1rem;
+      text-align:center; cursor:pointer;
+      transition: all .25s;
+    }
+    .cat-card:hover {
+      background: rgba(0,181,204,.15);
+      border-color: var(--aqua);
+      transform: translateY(-4px);
+    }
+    .cat-icon { font-size:2.8rem; margin-bottom:.8rem; }
+    .cat-card h4 { font-size:.95rem; font-weight:500; }
+    .cat-card small { font-size:.75rem; color:rgba(244,249,251,.45); }
 
-  /* Name / title block */
-  .name-block {
-    position: absolute;
-    top: 130px;
-    left: 40px;
-  }
+    .features-grid {
+      display:grid; grid-template-columns:repeat(auto-fill, minmax(230px,1fr));
+      gap:2rem; margin-top:3rem;
+    }
+    .feature {
+      background: rgba(13,35,64,.5);
+      border: 1px solid rgba(0,181,204,.12);
+      border-radius:1rem; padding:2rem 1.5rem;
+      transition: border-color .25s;
+    }
+    .feature:hover { border-color: rgba(0,181,204,.4); }
+    .feature-icon {
+      width:52px; height:52px; border-radius:.7rem;
+      background: rgba(0,181,204,.15);
+      display:flex; align-items:center; justify-content:center;
+      font-size:1.5rem; margin-bottom:1.2rem;
+    }
+    .feature h4 { font-size:1.05rem; margin-bottom:.5rem; }
+    .feature p  { font-size:.83rem; color:rgba(244,249,251,.55); line-height:1.55; }
 
-  .name-block h1 {
-    font-family: 'Playfair Display', serif;
-    font-size: 22px;
-    font-weight: 700;
-    color: #2c2c2c;
-    line-height: 1.4;
-    margin-bottom: 2px;
-  }
+    .newsletter {
+      background: linear-gradient(135deg, rgba(10,124,140,.3), rgba(14,77,123,.4));
+      border: 1px solid rgba(0,181,204,.2);
+      border-radius:1.5rem; padding:4rem 5%;
+      text-align:center; margin:0 5% 5rem;
+    }
+    .newsletter h2 { font-family:'Playfair Display',serif; font-size:2.2rem; margin-bottom:.8rem; }
+    .newsletter p { color:rgba(244,249,251,.6); margin-bottom:2rem; }
+    .nl-form { display:flex; gap:.8rem; max-width:460px; margin:0 auto; flex-wrap:wrap; justify-content:center; }
+    .nl-form input {
+      flex:1; min-width:220px;
+      background:rgba(10,22,40,.7); border: 1px solid rgba(0,181,204,.35);
+      color:var(--white); padding:.75rem 1.2rem; border-radius:.4rem;
+      font-size:.95rem; outline:none; transition: border-color .2s;
+    }
+    .nl-form input:focus { border-color: var(--aqua); }
+    .nl-form input::placeholder { color:rgba(244,249,251,.35); }
 
-  .name-block .subtitle {
-    font-family: 'Lato', sans-serif;
-    font-size: 13px;
-    font-weight: 700;
-    color: #2c2c2c;
-    line-height: 1.6;
-    letter-spacing: 0.3px;
-  }
+    footer {
+      position:relative; z-index:1;
+      background: rgba(8,16,30,.9);
+      border-top: 1px solid rgba(0,181,204,.12);
+      padding: 4rem 5% 2rem;
+    }
+    .footer-grid {
+      display:grid; grid-template-columns:2fr 1fr 1fr 1fr;
+      gap:3rem; margin-bottom:3rem;
+    }
+    .footer-brand .logo { font-size:1.3rem; margin-bottom:.9rem; }
+    .footer-brand p { font-size:.85rem; color:rgba(244,249,251,.45); line-height:1.6; max-width:260px; }
+    footer h5 { font-size:.8rem; letter-spacing:.15em; text-transform:uppercase; color:rgba(244,249,251,.45); margin-bottom:1.1rem; }
+    footer ul { list-style:none; }
+    footer ul li { margin-bottom:.6rem; }
+    footer ul a { font-size:.88rem; color:rgba(244,249,251,.55); text-decoration:none; transition:color .2s; }
+    footer ul a:hover { color: var(--aqua); }
+    .social-links { display:flex; gap:.8rem; margin-top:1.2rem; }
+    .social-btn {
+      width:36px; height:36px; border-radius:50%;
+      border: 1px solid rgba(0,181,204,.3);
+      background:transparent; color:rgba(244,249,251,.6);
+      display:flex; align-items:center; justify-content:center;
+      font-size:.85rem; cursor:pointer; transition: all .2s;
+    }
+    .social-btn:hover { background:var(--aqua); color:var(--deep); border-color:var(--aqua); }
+    .footer-bottom {
+      border-top:1px solid rgba(0,181,204,.1);
+      padding-top:1.5rem;
+      display:flex; align-items:center; justify-content:space-between;
+      flex-wrap:wrap; gap:.8rem;
+      font-size:.8rem; color:rgba(244,249,251,.35);
+    }
 
-  /* Body text */
-  .body-text {
-    position: absolute;
-    top: 295px;
-    left: 60px;
-    right: 60px;
-  }
+    @keyframes fadeDown {
+      from { opacity:0; transform:translateY(-20px); }
+      to   { opacity:1; transform:translateY(0); }
+    }
+    @keyframes fadeUp {
+      from { opacity:0; transform:translateY(30px); }
+      to   { opacity:1; transform:translateY(0); }
+    }
+    @keyframes float {
+      0%,100% { transform:translateY(0); }
+      50%      { transform:translateY(-12px); }
+    }
+    .hero-emoji {
+      font-size: clamp(5rem, 12vw, 9rem);
+      display:block; margin-bottom:1.5rem;
+      animation: float 4s ease-in-out infinite;
+    }
 
-  .body-text p {
-    font-family: 'Lato', sans-serif;
-    font-size: 13.5px;
-    font-weight: 300;
-    color: #3a3a3a;
-    line-height: 1.8;
-    margin-bottom: 20px;
-    text-align: justify;
-  }
+    .cart-btn {
+      position:fixed; bottom:2rem; right:2rem; z-index:200;
+      width:58px; height:58px; border-radius:50%;
+      background: var(--coral); border:none; cursor:pointer;
+      display:flex; align-items:center; justify-content:center;
+      font-size:1.4rem;
+      box-shadow: 0 8px 30px rgba(224,92,58,.5);
+      transition: transform .2s, background .2s;
+    }
+    .cart-btn:hover { transform:scale(1.1); background:#c94a2a; }
+    .cart-count {
+      position:absolute; top:-4px; right:-4px;
+      width:22px; height:22px; border-radius:50%;
+      background:var(--gold); color:var(--deep);
+      font-size:.7rem; font-weight:700;
+      display:flex; align-items:center; justify-content:center;
+    }
 
-  /* Signature area */
-  .signature-area {
-    position: absolute;
-    bottom: 60px;
-    left: 40px;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .sig-circle {
-    width: 72px;
-    height: 72px;
-    border: 1.5px solid #aabccc;
-    border-radius: 12px;
-    background: rgba(122,154,191,0.05);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 8px;
-  }
-
-  .sig-circle svg {
-    width: 40px;
-    height: 40px;
-    stroke: #7a9abf;
-    fill: none;
-    stroke-width: 1.2;
-  }
-
-  .sig-name {
-    font-family: 'Playfair Display', serif;
-    font-size: 14px;
-    font-weight: 700;
-    color: #2c2c2c;
-    letter-spacing: 0.5px;
-  }
-</style>
+    @media(max-width:768px){
+      .stats-bar { grid-template-columns:repeat(2,1fr); }
+      .footer-grid { grid-template-columns:1fr 1fr; }
+      nav ul { display:none; }
+    }
+    @media(max-width:480px){
+      .footer-grid { grid-template-columns:1fr; }
+      .stats-bar { grid-template-columns:1fr 1fr; }
+    }
+  </style>
 </head>
 <body>
-<div class="page">
 
-  <!-- Decorative bars -->
-  <div class="top-bar"></div>
-  <div class="bottom-bar"></div>
+<button class="cart-btn" onclick="alert('🛒 Carrito: '+cartCount+' productos')">
+  🛒 <span class="cart-count" id="cartCount">0</span>
+</button>
 
-  <!-- Background diamonds -->
-  <div class="diamond-bg"></div>
-  <div class="diamond-bg2"></div>
+<nav>
+  <div class="logo">🐚 Mar<span>Profundo</span></div>
+  <ul>
+    <li><a href="#productos">Productos</a></li>
+    <li><a href="#categorias">Categorías</a></li>
+    <li><a href="#nosotros">Nosotros</a></li>
+    <li><a href="#contacto" class="nav-cta">Pedir Ahora</a></li>
+  </ul>
+</nav>
 
-  <!-- Date -->
-  <div class="date-block">
-    Fecha:<br>13/Mayo/26
+<section class="hero">
+  <span class="hero-emoji">🦞</span>
+  <span class="hero-badge">🌊 Del Mar a Tu Mesa · Envío el Mismo Día</span>
+  <h1>Mariscos<br><em>frescos</em> del<br>océano</h1>
+  <p>Seleccionamos los mejores mariscos directamente de los pescadores locales. Frescura garantizada, sabor auténtico.</p>
+  <div class="hero-btns">
+    <a href="#productos" class="btn-primary">Ver Productos</a>
+    <a href="#nosotros" class="btn-outline">Cómo Funciona</a>
   </div>
+</section>
 
-  <!-- Logo -->
-  <div class="logo-area">
-    <!-- Airplane icon -->
-    <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
-      <path d="M6 30l8-4 4 8 6-2-4-10 10-5 8 2 2-4-8-6 2-6-4-2-4 6-10 2-2-8-4 2 2 8-8 4z" stroke-linejoin="round" stroke-linecap="round"/>
-    </svg>
-    <div class="logo-label">Flight<br>Attendant</div>
+<div class="wave-divider">
+  <svg viewBox="0 0 1440 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,30 C240,60 480,0 720,30 C960,60 1200,0 1440,30 L1440,60 L0,60 Z" fill="rgba(13,35,64,0.8)"/>
+  </svg>
+</div>
+
+<div class="stats-bar">
+  <div class="stat"><div class="stat-num">+200</div><div class="stat-label">Productos frescos</div></div>
+  <div class="stat"><div class="stat-num">98%</div><div class="stat-label">Clientes satisfechos</div></div>
+  <div class="stat"><div class="stat-num">3h</div><div class="stat-label">Entrega express</div></div>
+  <div class="stat"><div class="stat-num">15+</div><div class="stat-label">Años de experiencia</div></div>
+</div>
+
+<section class="categories" id="categorias">
+  <span class="section-tag">Navega por tipo</span>
+  <h2 class="section-title">Categorías</h2>
+  <p class="section-sub">Encuentra exactamente lo que buscas entre nuestra amplia selección de mariscos.</p>
+  <div class="cats-grid">
+    <div class="cat-card"><div class="cat-icon">🦐</div><h4>Camarones</h4><small>32 productos</small></div>
+    <div class="cat-card"><div class="cat-icon">🦞</div><h4>Langostas</h4><small>14 productos</small></div>
+    <div class="cat-card"><div class="cat-icon">🦀</div><h4>Cangrejos</h4><small>18 productos</small></div>
+    <div class="cat-card"><div class="cat-icon">🐙</div><h4>Pulpo</h4><small>9 productos</small></div>
+    <div class="cat-card"><div class="cat-icon">🦑</div><h4>Calamar</h4><small>11 productos</small></div>
+    <div class="cat-card"><div class="cat-icon">🐟</div><h4>Pescados</h4><small>45 productos</small></div>
+    <div class="cat-card"><div class="cat-icon">🦪</div><h4>Ostras</h4><small>7 productos</small></div>
+    <div class="cat-card"><div class="cat-icon">🐡</div><h4>Especiales</h4><small>22 productos</small></div>
   </div>
+</section>
 
-  <!-- Name block -->
-  <div class="name-block">
-    <h1>Andrea Sofia Gonzalez Baez</h1>
-    <div class="subtitle">
-      Aspirante a la carrera de<br>
-      Azafata / Tripulaci�n de Cabina<br>
-      Cobaej plantel #21
+<section id="productos">
+  <div class="products-header">
+    <div>
+      <span class="section-tag">Lo más pedido</span>
+      <h2 class="section-title">Productos Destacados</h2>
+    </div>
+    <div class="filter-tabs">
+      <button class="tab active" onclick="setTab(this)">Todos</button>
+      <button class="tab" onclick="setTab(this)">Frescos</button>
+      <button class="tab" onclick="setTab(this)">Congelados</button>
+      <button class="tab" onclick="setTab(this)">Ofertas</button>
     </div>
   </div>
+  <div class="products-grid">
+    <div class="product-card">
+      <div class="card-img">🦐</div>
+      <div class="card-body">
+        <span class="card-badge badge-fresh">Fresco Hoy</span>
+        <h3>Camarón Jumbo</h3>
+        <p>Camarones extra grandes, pelados y desvenados. Perfectos para parrilla o ceviche.</p>
+        <div class="card-footer">
+          <div class="price">$18.50 <span>/ kg</span></div>
+          <button class="add-btn" onclick="addToCart()">+</button>
+        </div>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="card-img">🦞</div>
+      <div class="card-body">
+        <span class="card-badge badge-premium">Premium</span>
+        <h3>Langosta Entera</h3>
+        <p>Langosta fresca del Caribe, talla mediana. Capturada esta mañana.</p>
+        <div class="card-footer">
+          <div class="price">$42.00 <span>/ pieza</span></div>
+          <button class="add-btn" onclick="addToCart()">+</button>
+        </div>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="card-img">🦀</div>
+      <div class="card-body">
+        <span class="card-badge badge-offer">−20%</span>
+        <h3>Cangrejo de Mangle</h3>
+        <p>Cangrejos frescos de manglar, ideales para sopas y arroces de mariscos.</p>
+        <div class="card-footer">
+          <div class="price">$14.00 <span>/ kg</span></div>
+          <button class="add-btn" onclick="addToCart()">+</button>
+        </div>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="card-img">🐙</div>
+      <div class="card-body">
+        <span class="card-badge badge-fresh">Fresco Hoy</span>
+        <h3>Pulpo del Pacífico</h3>
+        <p>Pulpo entero limpio, listo para cocinar. Textura firme y sabor delicado.</p>
+        <div class="card-footer">
+          <div class="price">$22.00 <span>/ kg</span></div>
+          <button class="add-btn" onclick="addToCart()">+</button>
+        </div>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="card-img">🦑</div>
+      <div class="card-body">
+        <span class="card-badge badge-premium">Premium</span>
+        <h3>Calamar Gigante</h3>
+        <p>Anillos de calamar fresco, pre-cortado. Ideal para frituras y ceviches.</p>
+        <div class="card-footer">
+          <div class="price">$12.90 <span>/ kg</span></div>
+          <button class="add-btn" onclick="addToCart()">+</button>
+        </div>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="card-img">🦪</div>
+      <div class="card-body">
+        <span class="card-badge badge-offer">−15%</span>
+        <h3>Ostras Finas</h3>
+        <p>Ostras frescas en media concha, docena seleccionada. Madurez perfecta.</p>
+        <div class="card-footer">
+          <div class="price">$28.00 <span>/ docena</span></div>
+          <button class="add-btn" onclick="addToCart()">+</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-  <!-- Body text -->
+<section id="nosotros">
+  <span class="section-tag">¿Por qué elegirnos?</span>
+  <h2 class="section-title">Calidad que se siente</h2>
+  <p class="section-sub">Cada pedido es una promesa de frescura, sabor y cuidado desde el mar hasta tu puerta.</p>
+  <div class="features-grid">
+    <div class="feature">
+      <div class="feature-icon">🌊</div>
+      <h4>Directo del Pescador</h4>
+      <p>Trabajamos con pescadores locales certificados que nos proveen diariamente con la captura del día.</p>
+    </div>
+    <div class="feature">
+      <div class="feature-icon">❄️</div>
+      <h4>Cadena de Frío</h4>
+      <p>Nuestros productos se mantienen en temperatura controlada desde el puerto hasta la entrega.</p>
+    </div>
+    <div class="feature">
+      <div class="feature-icon">🚚</div>
+      <h4>Entrega Express</h4>
+      <p>Pedidos antes de las 12pm se entregan el mismo día en tu ciudad. Puntualidad garantizada.</p>
+    </div>
+    <div class="feature">
+      <div class="feature-icon">✅</div>
+      <h4>Calidad Certificada</h4>
+      <p>Todos nuestros productos cuentan con certificación sanitaria y análisis de frescura diario.</p>
+    </div>
+    <div class="feature">
+      <div class="feature-icon">♻️</div>
+      <h4>Pesca Sostenible</h4>
+      <p>Apoyamos la pesca responsable y el cuidado de los ecosistemas marinos para las futuras generaciones.</p>
+    </div>
+    <div class="feature">
+      <div class="feature-icon">💬</div>
+      <h4>Soporte 24/7</h4>
+      <p>Nuestro equipo está disponible toda la semana para atender tus preguntas y pedidos especiales.</p>
+    </div>
+  </div>
+</section>
+
+<div class="newsletter" id="contacto">
+  <span class="section-tag">Mantente al día</span>
+  <h2>Ofertas exclusivas cada semana 🐚</h2>
+  <p>Suscríbete y recibe las mejores ofertas, recetas del chef y novedades del mar directamente a tu correo.</p>
+  <div class="nl-form">
+    <input type="email" placeholder="tu@correo.com" />
+    <button class="btn-primary" onclick="alert('¡Suscripción exitosa! 🎉')">Suscribirme</button>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="logo">🐚 Mar<span>Profundo</span></div>
+      <p>Los mejores mariscos frescos del océano, entregados en tu puerta con amor y tradición marinera desde 2009.</p>
+      <div class="social-links">
+        <button class="social-btn">f</button>
+        <button class="social-btn">ig</button>
+        <button class="social-btn">yt</button>
+        <button class="social-btn">wa</button>
+      </div>
+    </div>
+    <div>
+      <h5>Productos</h5>
+      <ul>
+        <li><a href="#">Camarones</a></li>
+        <li><a href="#">Langostas</a></li>
+        <li><a href="#">Cangrejos</a></li>
+        <li><a href="#">Pulpo</a></li>
+        <li><a href="#">Ostras</a></li>
+      </ul>
+    </div>
+    <div>
+      <h5>Empresa</h5>
+      <ul>
+        <li><a href="#">Sobre Nosotros</a></li>
+        <li><a href="#">Blog de Recetas</a></li>
+        <li><a href="#">Proveedores</a></li>
+        <li><a href="#">Trabaja con Nosotros</a></li>
+        <li><a href="#">Prensa</a></li>
+      </ul>
+    </div>
+    <div>
+      <h5>Ayuda</h5>
+      <ul>
+        <li><a href="#">Envíos y entregas</a></li>
+        <li><a href="#">Política de devoluciones</a></li>
+        <li><a href="#">Preguntas frecuentes</a></li>
+        <li><a href="#">Contacto</a></li>
+        <li><a href="#">Términos de uso</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 MarProfundo — Todos los derechos reservados</span>
+    <span>🌊 Del mar a tu mesa con pasión</span>
+  </div>
+</footer>
+
+<script>
+  let cartCount = 0;
+
+  function addToCart() {
+    cartCount++;
+    document.getElementById('cartCount').textContent = cartCount;
+    const btn = event.target;
+    btn.style.transform = 'scale(1.4)';
+    btn.style.background = '#0a7c8c';
+    setTimeout(() => {
+      btn.style.transform = '';
+      btn.style.background = '';
+    }, 300);
+  }
+
+  function setTab(el) {
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    el.classList.add('active');
+  }
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.animation = 'fadeUp .6s ease both';
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.product-card, .feature, .cat-card, .stat')
+    .forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
